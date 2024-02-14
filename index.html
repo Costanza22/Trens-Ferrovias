@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trens e Ferrovias</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url(img/Chamonix36.jpg);
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    /* Estilos do cabeçalho */
+    .header {
+      background-color: cornflowerblue;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    /* Estilos do menu de navegação */
+    .navbar {
+      background-color: #444;
+      color: gray;
+      padding: 10px;
+    }
+
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .navbar li a {
+      text-decoration: none;
+      color: #fff;
+      padding: 5px 10px;
+    }
+
+    .navbar li a:hover {
+      background-color: #666;
+    }
+
+    /* Estilos da seção de conteúdo */
+    .content {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      margin-top: 0;
+    }
+
+    .image-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .image-gallery img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      margin: 10px;
+      cursor: pointer; /* Adiciona cursor de ponteiro para indicar que a imagem é clicável */
+    }
+
+    /* Estilos do pop-up */
+    .overlay {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+      display: none; /* Inicialmente oculto */
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      width: 600px; /* Define um tamanho fixo para o pop-up */
+      position: relative;
+    }
+
+    .popup img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .popup h2 {
+      margin-top: 0;
+    }
+
+    .popup p {
+      margin-bottom: 10px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>Trens e Ferrovias</h1>
+  </header>
+
+  <div class="content">
+    <section id="origem">
+      <h2 class="section-title">Origem das Ferrovias</h2>
+      <p>A origem das ferrovias remonta ao século XIX, com o desenvolvimento do transporte ferroviário como uma alternativa eficiente ao transporte de cargas e passageiros. As primeiras ferrovias foram construídas na Inglaterra, impulsionadas pela Revolução Industrial. A partir daí, as ferrovias se espalharam por todo o mundo, desempenhando um papel crucial no desenvolvimento econômico e na interconexão de regiões e países.</p>
+    </section>
+
+    <div class="image-gallery">
+      <!-- Cada imagem do trem é um pop-up -->
+      <div class="card" onclick="showPopup('img/Locomotivas.jpg', 'Locomotivas', 'As locomotivas são uma parte essencial das ferrovias.')">
+        <img src="img/Locomotivas.jpg" alt="Trem 1">
+      </div>
+      <div class="card" onclick="showPopup('img/durango-silverstone-trem-capa.jpg', 'Durango Silverstone', 'Durango Silverstone é uma locomotiva famosa.')">
+        <img src="img/durango-silverstone-trem-capa.jpg" alt="Trem 2">
+      </div>
+      <div class="card" onclick="showPopup('img/trem-nova-ferroeste-1-970x550.jpg', 'Trem Nova Ferroeste', 'O Trem Nova Ferroeste é uma moderna locomotiva de carga.')">
+        <img src="img/trem-nova-ferroeste-1-970x550.jpg" alt="Trem 3">
+      </div>
+      <!-- Adicione mais imagens de trens aqui -->
+    </div>
+
+    <section id="curiosidades">
+      <h2 class="section-title">Curiosidades</h2>
+      <p>Aqui estão algumas curiosidades interessantes sobre trens e ferrovias:</p>
+      <ul>
+        <li>As ferrovias são uma das formas mais eficientes e seguras de transporte em longas distâncias.</li>
+        <li>O trem mais rápido do mundo é o Maglev (trem de levitação magnética) no Japão, que atinge velocidades superiores a 600 km/h.</li>
+        <li>A ferrovia transiberiana, na Rússia, é a ferrovia mais longa do mundo, estendendo-se por mais de 9.000 km.</li>
+        <li>O sistema ferroviário do metrô de Londres é o mais antigo do mundo, inaugurado em 1863.</li>
+      </ul>
+    </section>
+
+    <!-- Pop-up de informação -->
+    <div class="overlay" id="overlay">
+      <div class="popup" id="popup">
+        <span class="close-btn" onclick="hidePopup()">X</span>
+        <img src="" alt="Trem" id="popup-image">
+        <h2 id="popup-title"></h2>
+        <p id="popup-description"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPopup(imageSrc, title, description) {
+      // Exibe o pop-up com os dados da imagem clicada
+      document.getElementById("popup-image").src = imageSrc;
+      document.getElementById("popup-title").textContent = title;
+      document.getElementById("popup-description").textContent = description;
+      document.getElementById("overlay").style.display = "flex";
+    }
+
+    function hidePopup() {
+      // Oculta o pop-up
+      document.getElementById("overlay").style.display = "none";
+    }
+  </script>
+  <!DOCTYPE html>
+  <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Ferroviário Interativo</title>
+    <!-- Inclua a biblioteca Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+      #map {
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1></h1>
+  
+    <!-- Div onde o mapa será renderizado -->
+    <div id="map"></div>
+  
+    <!-- Inclua a biblioteca Leaflet.js -->
+    <script src="https://unpkg.com/leaflet"></script>
+    <script>
+      // Cria o mapa e define sua visualização inicial
+      var map = L.map('map').setView([-23.55052, -46.633308], 10);
+  
+      // Adiciona uma camada de azulejos do OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+  
+      // Exemplo de adicionar um marcador de estação ferroviária
+      var estacaoMarker = L.marker([-23.55052, -46.633308]).addTo(map);
+      estacaoMarker.bindPopup("<b>Estação Central</b><br>Esta é uma estação ferroviária.");
+  
+      // Você pode adicionar mais marcadores, polilinhas, polígonos, etc., conforme necessário para representar diferentes aspectos das ferrovias.
+    </script>
+  </body>
+  </html>
+  
+</body>
+</html>
